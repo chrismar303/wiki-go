@@ -1,11 +1,12 @@
+import SearchBar from "./SearchBar"
+import ActionButton from "../buttons/ActionButton"
+
 export default function Search({ className }) {
 
     return (
-        <div className={className}>
-            <div className="w-auto bg-blue-200 h-full">
-                <input type="search" name="" id="" />
-            </div>
-            <button>Search</button>
+        <div className="flex gap-8 place-content-center" >
+            <SearchBar />
+            <ActionButton>Search</ActionButton>
         </div>
     )
 
