@@ -1,13 +1,11 @@
 import SearchBar from "./SearchBar"
 import ActionButton from "../buttons/ActionButton"
 
-export default function Search({ className }) {
-
+export default function SearchForm() {
     return (
-        <div className="flex gap-8 place-content-center" >
+        <div className="flex gap-8">
             <SearchBar />
             <ActionButton>Search</ActionButton>
         </div>
     )
-
 }
