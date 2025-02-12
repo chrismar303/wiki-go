@@ -14,3 +14,5 @@ There are 3 pages to this website. The home page is the initial starting point w
 
 # Article Display:
 * In Progress . . .
+* Header Section
+![image](https://github.com/user-attachments/assets/42fc3873-3096-4d4a-a6a0-d0d4e59f6f42)
