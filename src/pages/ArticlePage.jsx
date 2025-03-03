@@ -31,27 +31,34 @@ export default function ArticlePage() {
       <div className="bg-white drop-shadow-2xl">
         <div className="flex flex-col w-[80%] mx-auto">
           {article.sections.map((section, index) => (
-            <section key={index} className="my-8 first:mt-12 w-[90%] mx-auto">
-              <div className="flex gap-8 text-2xl font-medium mb-6">
-                <span className="rounded w-8 text-center text-white bg-(--primary-color)">
-                  {index}
-                </span>
-                <h3 className="text-gray-600">{section.toUpperCase()}</h3>
+            <div key={index} className="w-[90%] mx-auto">
+              <div className="flex my-4 gap-8 items-center">
+                <div className="bg-white drop-shadow-2xl border-2 border-(--primary-color) rounded-full h-5 w-5 -mx-2"></div>
+                <div className="bg-gray-100 flex-1 rounded h-1 shadow-md"></div>
               </div>
+              <section className="pl-8 border-l-2 border-(--primary-color)">
+                <div className="flex gap-8 text-2xl font-medium mb-6">
+                  <span className="rounded w-8 text-center text-white bg-(--primary-color)">
+                    {index}
+                  </span>
+                  <h3 className="text-gray-600">{section.toUpperCase()}</h3>
+                </div>
 
-              <SectionDivider />
-              <p className="text-black font-light mt-6">
-                Ipsum in voluptate commodo sit sunt velit dolore ex nisi ullamco
-                cupidatat esse. Reprehenderit exercitation labore esse eu
-                deserunt consectetur excepteur mollit consequat ipsum proident
-                ipsum excepteur. Do mollit proident fugiat dolore minim. Quis
-                dolor officia aliqua Lorem ipsum excepteur anim quis elit
-                adipisicing fugiat ullamco esse excepteur. Laborum occaecat
-                dolore occaecat in culpa incididunt veniam. Sit pariatur aliquip
-                duis proident minim aute veniam. Culpa velit duis pariatur
-                mollit dolore excepteur adipisicing sunt deserunt.
-              </p>
-            </section>
+                <SectionDivider />
+                <p className="text-black font-light mt-6">
+                  Ipsum in voluptate commodo sit sunt velit dolore ex nisi
+                  ullamco cupidatat esse. Reprehenderit exercitation labore esse
+                  eu deserunt consectetur excepteur mollit consequat ipsum
+                  proident ipsum excepteur. Do mollit proident fugiat dolore
+                  minim. Quis dolor officia aliqua Lorem ipsum excepteur anim
+                  quis elit adipisicing fugiat ullamco esse excepteur. Laborum
+                  occaecat dolore occaecat in culpa incididunt veniam. Sit
+                  pariatur aliquip duis proident minim aute veniam. Culpa velit
+                  duis pariatur mollit dolore excepteur adipisicing sunt
+                  deserunt.
+                </p>
+              </section>
+            </div>
           ))}
         </div>
       </div>
