@@ -23,12 +23,7 @@ export default function SearchPage() {
         <ol className="grid grid-cols-1 gap-8 w-[60%] mx-auto">
           {searchResults.map((res, index) => (
             <li key={index}>
-              <SearchResultCard
-                title={res.title}
-                text={res.text}
-                caption={res.caption}
-                img={res.img}
-              />
+              <SearchResultCard title={res.title} text={res.text} />
             </li>
           ))}
         </ol>
