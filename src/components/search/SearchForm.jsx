@@ -3,8 +3,10 @@ import SearchDropdown from './SearchDropdown'
 import ActionButton from '../buttons/ActionButton'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import {useNavigate} from 'react-router-dom'
 
 export default function SearchForm() {
+  const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
 
@@ -19,8 +21,18 @@ export default function SearchForm() {
     fetchResults()
   }, [searchTerm])
 
+  const navigateToSearch = event => {
+    event.preventDefault()
+    navigate('/search', {
+      state: {
+        searchTerm,
+        searchResults
+      }
+    })
+  }
+
   return (
-    <div className="flex gap-8">
+    <form className="flex gap-8" onSubmit={navigateToSearch}>
       <div className="relative">
         <SearchBar
           searchTerm={searchTerm}
@@ -28,7 +40,7 @@ export default function SearchForm() {
         />
         {hasResults() ? <SearchDropdown list={searchResults} /> : ''}
       </div>
-      <ActionButton>Search</ActionButton>
-    </div>
+      <ActionButton onClick={navigateToSearch}>Search</ActionButton>
+    </form>
   )
 }
