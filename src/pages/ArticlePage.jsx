@@ -1,12 +1,31 @@
 import ArticleNav from '../components/navigation/ArticleNav'
 import SectionDivider from '../components/divider/SectionDivider'
+import {useParams} from 'react-router-dom'
+import {useEffect, useState} from 'react'
+import axios from 'axios'
+
 export default function ArticlePage() {
+  const {title} = useParams()
+  const [articleTitle, setArticleTitle] = useState('')
+  const [articleText, setArticleText] = useState('')
+
+  useEffect(() => {
+    async function fetchArticle() {
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/article/${title}`
+      )
+      setArticleTitle(response.data.title)
+      setArticleText(response.data.text)
+    }
+    fetchArticle()
+  }, [title])
+
   const article = {
     title: 'Title of Article',
     date: '07/77/7777',
     text: 'Velit anim labore ullamco officia deserunt dolor aliqua. Aliquip fugiat duis id Lorem. Occaecat sunt id consequat in in laborum in consequat id aliquip. Lorem ea est veniam est anim sint pariatur.',
     img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgUO36r9PwjwIlVO9CLAC4__aHRcwZJNpq8Q&s',
-    sections: ['Intro', 'History', 'Production', 'Adaptation', 'External'], // TODO: this passed to ArticleNav
+    sections: ['Intro', 'History', 'Production', 'Adaptation', 'External'] // TODO: this passed to ArticleNav
   }
   return (
     <>
@@ -14,7 +33,7 @@ export default function ArticlePage() {
       <section className="my-8 h-full w-[80%] mx-auto">
         <div className="flex mb-8 place-content-between">
           <h1 className="text-4xl text-(--primary-color) font-bold drop-shadow">
-            {article.title}
+            {articleTitle}
           </h1>
           <span className="text-sm text-gray-500 self-end font-semibold">
             {article.date}
@@ -45,18 +64,7 @@ export default function ArticlePage() {
                 </div>
 
                 <SectionDivider />
-                <p className="text-black font-light mt-6">
-                  Ipsum in voluptate commodo sit sunt velit dolore ex nisi
-                  ullamco cupidatat esse. Reprehenderit exercitation labore esse
-                  eu deserunt consectetur excepteur mollit consequat ipsum
-                  proident ipsum excepteur. Do mollit proident fugiat dolore
-                  minim. Quis dolor officia aliqua Lorem ipsum excepteur anim
-                  quis elit adipisicing fugiat ullamco esse excepteur. Laborum
-                  occaecat dolore occaecat in culpa incididunt veniam. Sit
-                  pariatur aliquip duis proident minim aute veniam. Culpa velit
-                  duis pariatur mollit dolore excepteur adipisicing sunt
-                  deserunt.
-                </p>
+                <p className="text-black font-light mt-6">{articleText}</p>
               </section>
             </div>
           ))}
