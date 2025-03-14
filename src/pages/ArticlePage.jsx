@@ -34,7 +34,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <ArticleNav />
+      <ArticleNav numParts={NUM_PARTS} />
       <section className="my-8 h-full w-[80%] mx-auto">
         <div className="flex mb-8 place-content-between">
           <h1 className="text-4xl text-(--primary-color) font-bold drop-shadow">
