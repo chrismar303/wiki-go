@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types'
+import {useNavigate} from 'react-router-dom'
 
 export default function SearchResultCard({title, text}) {
+  const navigate = useNavigate()
+  const navigateToArticle = () =>
+    navigate(`/article/${encodeURIComponent(title)}`)
   return (
-    <article className="h-72 max-w-3xl hover:scale-115 ease-in-out duration-300 flex border-3 rounded-3xl shadow-xl border-gray-100 bg-white overflow-hidden">
+    <article
+      onClick={navigateToArticle}
+      className="h-72 max-w-3xl hover:scale-115 ease-in-out duration-300 flex border-3 rounded-3xl shadow-xl border-gray-100 bg-white overflow-hidden cursor-pointer">
       <div className="flex flex-1 gap-2 flex-col p-4">
         <header>
           <h2 className="text-xl text-gray-700 font-bold">{title}</h2>
