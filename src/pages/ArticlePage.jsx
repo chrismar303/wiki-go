@@ -18,7 +18,7 @@ export default function ArticlePage() {
       setArticleText(response.data.text)
     }
     fetchArticle()
-  }, [title])
+  }, [])
 
   const article = {
     title: 'Title of Article',
