@@ -20,7 +20,7 @@ export default function SearchPage() {
 
       <SectionDivider />
       <section className="w-full pb-16">
-        <ol className="grid grid-cols-1 gap-8 w-[60%] mx-auto">
+        <ol className="grid grid-cols-2 gap-8 justify-items-center">
           {searchResults.map((res, index) => (
             <li key={index}>
               <SearchResultCard title={res.title} text={res.text} />
