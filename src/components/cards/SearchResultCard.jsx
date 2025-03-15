@@ -18,11 +18,7 @@ export default function SearchResultCard({title, text}) {
         </p>
         <footer className="mt-auto text-xs border-t-2 pt-2 border-gray-200 font-light text-gray-400"></footer>
       </div>
-      <img
-        className="ml-auto"
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgUO36r9PwjwIlVO9CLAC4__aHRcwZJNpq8Q&s"
-        alt={title}
-      />
+
     </article>
   )
 }
