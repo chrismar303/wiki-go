@@ -32,7 +32,7 @@ export default function SearchForm() {
 
     navigate('/search', {
       state: {
-        searchTerm,
+        searchTerm: searchTerm.trim(),
         searchResults
       }
     })
