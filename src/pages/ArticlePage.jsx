@@ -23,7 +23,8 @@ export default function ArticlePage() {
 
     async function fetchArticle() {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/article/${title}`
+        `${import.meta.env.VITE_API_URL}/article/${title}`,
+         { withCredentials: true } 
       )
       setArticleTitle(response.data.title)
       setArticleText(response.data.text)
