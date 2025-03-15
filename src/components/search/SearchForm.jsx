@@ -9,6 +9,7 @@ export default function SearchForm() {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
   const [searchResults, setSearchResults] = useState([])
+  const [error, setError] = useState('')
 
   const hasResults = () => searchTerm.length && searchResults[1]?.title
   useEffect(() => {
@@ -23,9 +24,15 @@ export default function SearchForm() {
 
   const navigateToSearch = event => {
     event.preventDefault()
+    // validate form is not empty
+    if (!searchTerm.length) {
+      setError('Please Enter Search Request')
+      return
+    }
+
     navigate('/search', {
       state: {
-        searchTerm,
+        searchTerm: searchTerm.trim(),
         searchResults
       }
     })
@@ -38,6 +45,11 @@ export default function SearchForm() {
           searchTerm={searchTerm}
           onChange={event => setSearchTerm(event.target.value)}
         />
+        {error && (
+          <p className="absolute ml-4 mt-1 text-sm font-light text-red-400">
+            {error}
+          </p>
+        )}
         {hasResults() ? <SearchDropdown list={searchResults} /> : ''}
       </div>
       <ActionButton onClick={navigateToSearch}>Search</ActionButton>
