@@ -17,7 +17,7 @@ export default function SearchDropdown({list}) {
           <span className="block h-10 overflow-hidden text-sm text-black font-thin">
             {entry.text || 'No Description'}
           </span>
-          <span className="text-xs">Score {entry.score?.toFixed(2)}</span>
+          <span className="text-xs">Score: {entry.score?.toFixed(2)} </span>
         </li>
       ))}
     </ol>

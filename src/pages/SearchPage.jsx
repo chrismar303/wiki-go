@@ -6,16 +6,22 @@ import {useLocation} from 'react-router-dom'
 export default function SearchPage() {
   const location = useLocation()
   const {
-    state: {searchTerm, searchResults}
+    state: {searchTerm, searchResults,searchTime}
   } = location
 
   return (
     <section className="flex flex-col gap-8 h-full w-[90%] mx-auto">
       <div className="flex flex-col gap-6 mt-12">
-        <h1 className="text-4xl text-(--primary-color) font-bold drop-shadow">
-          Search Results
-        </h1>
-        <SearchForm />
+        <div className="flex items-center justify-between">
+          <h1 className="text-4xl text-(--primary-color) font-bold drop-shadow">
+            Search Results
+          </h1>
+          <span className="text-xl text-(--primary-color) font-light">
+            The search takes {searchTime} seconds
+          </span>
+        </div>
+
+        <SearchForm /> 
       </div>
 
       <SectionDivider />

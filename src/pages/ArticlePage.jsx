@@ -72,9 +72,9 @@ export default function ArticlePage() {
           <h1 className="text-7xl text-(--primary-color) font-bold drop-shadow">
             {articleTitle}
           </h1>
-          <span className="text-sm text-gray-700 self-end font-semibold">
+          {/* <span className="text-sm text-gray-700 self-end font-semibold">
             07/77/7777
-          </span>
+          </span> */}
         </div>
       </section>
       {/* Article Sections */}
