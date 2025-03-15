@@ -12,15 +12,16 @@ export default function SearchForm() {
   const [error, setError] = useState('')
 
   const hasResults = () => searchTerm.length && searchResults[1]?.title
-  useEffect(() => {
-    async function fetchResults() {
-      const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
-        params: {q: searchTerm}
-      })
-      setSearchResults([...res.data])
-    }
-    fetchResults()
-  }, [searchTerm])
+useEffect(() => {
+  async function fetchResults() {
+    const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
+      params: {q: searchTerm},
+      withCredentials: true  // receive cookie when searching
+    })
+    setSearchResults([...res.data])
+  }
+  fetchResults()
+}, [searchTerm])
 
   const navigateToSearch = event => {
     event.preventDefault()
