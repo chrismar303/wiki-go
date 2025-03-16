@@ -34,10 +34,9 @@ export default function SearchForm() {
         const isValid = await testArticleHyperlink(result.title) // Test each result
         if (isValid) {
           validatedResults.push(result) // Add only valid results
+          setSearchResults([...validatedResults]) 
         }
       }
-
-      setSearchResults(validatedResults)
       if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
     }
     fetchResults()
