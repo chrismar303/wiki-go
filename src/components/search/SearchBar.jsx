@@ -8,7 +8,7 @@ export default function SearchBar({searchTerm, onChange}) {
         value={searchTerm}
         onChange={onChange}
         placeholder="My Search Text"
-        className="px-6 py-2 min-w-100 max-w-624 border-3 border-(--primary-color) rounded-3xl drop-shadow-xl bg-white text-black font-light focus:outline-none"
+        className="px-6 py-2 min-w-full xl:min-w-100 max-w-624 border-3 border-(--primary-color) rounded-3xl drop-shadow-xl bg-white text-black font-light focus:outline-none"
       />
       <IoSearch className="absolute right-4 top-[15%] text-3xl text-(--primary-color)" />
     </div>
