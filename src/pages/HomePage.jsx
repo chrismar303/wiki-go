@@ -16,7 +16,7 @@ export default function HomePage() {
       <img
         src={wikiImage}
         alt="Wikipedia Globe Logo"
-        className="w-[300px] h-[270px] mt-16"
+        className="w-[300px] h-[270px] mt-8 md:mt-16"
       />
     </div>
   )

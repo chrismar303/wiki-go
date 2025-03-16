@@ -51,7 +51,9 @@ export default function SearchForm() {
   }
 
   return (
-    <form className="flex gap-8 gap-y-4 flex-wrap" onSubmit={navigateToSearch}>
+    <form
+      className="flex flex-col lg:flex-row lg:gap-x-8 gap-y-4"
+      onSubmit={navigateToSearch}>
       <div className="relative">
         <SearchBar
           searchTerm={searchTerm}
