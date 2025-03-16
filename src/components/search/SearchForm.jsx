@@ -1,9 +1,9 @@
 import SearchBar from './SearchBar'
 import SearchDropdown from './SearchDropdown'
 import ActionButton from '../buttons/ActionButton'
-import {useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { testArticleHyperlink } from '../../pages/ArticlePage'
 
 export default function SearchForm() {
@@ -23,21 +23,28 @@ export default function SearchForm() {
       }
 
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
-        params: {q: searchTerm},
+        params: { q: searchTerm },
         withCredentials: true // receive cookie when searching
       })
       const results = [...res.data]
       const lastElement = results.pop() // Remove the last element from the array, which is the search time. Apologize for the bad json format
+      if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
 
       const validatedResults = []
       for (const result of results) {
         const isValid = await testArticleHyperlink(result.title) // Test each result
         if (isValid) {
           validatedResults.push(result) // Add only valid results
-          setSearchResults([...validatedResults]) 
+        }
+
+        // Update the state in batches
+        if (validatedResults.length % 8 === 0) {
+          setSearchResults([...validatedResults]) // Update every 5 valid results
         }
       }
-      if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
+      // Final update after all validations
+      setSearchResults([...validatedResults])
+
     }
     fetchResults()
   }, [searchTerm])
