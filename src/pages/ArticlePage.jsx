@@ -46,10 +46,19 @@ export default function ArticlePage() {
           currentSection.content.push(formattedParagraph);
         }
       });
+
     
       if (currentSection.title || currentSection.content.length) {
         articleSegments.push(currentSection);
       }
+
+      articleSegments.forEach((segment, index) => {
+        if (segment.content.length === 1 && (segment.content[0].startsWith('REDIRECT ') || segment.content[0].startsWith('redirect '))) {
+          console.log(`Found redirect in segment ${index}:`, segment.content[0]);
+          const redirectTitle = segment.content[0].substring(9).trim(); // Extract the title after "REDIRECT "
+          segment.content[0] = `<a href="/article/${redirectTitle}"  style="color: blue; text-decoration: underline;">${segment.content[0]}</a>`;
+        }
+      });
     
       return articleSegments;
     }
