@@ -4,6 +4,7 @@ import ActionButton from '../buttons/ActionButton'
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
+import { testArticleHyperlink } from '../../pages/ArticlePage'
 
 export default function SearchForm() {
   const navigate = useNavigate()
@@ -27,7 +28,16 @@ export default function SearchForm() {
       })
       const results = [...res.data]
       const lastElement = results.pop() // Remove the last element from the array, which is the search time. Apologize for the bad json format
-      setSearchResults(results)
+
+      const validatedResults = []
+      for (const result of results) {
+        const isValid = await testArticleHyperlink(result.title) // Test each result
+        if (isValid) {
+          validatedResults.push(result) // Add only valid results
+        }
+      }
+
+      setSearchResults(validatedResults)
       if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
     }
     fetchResults()
