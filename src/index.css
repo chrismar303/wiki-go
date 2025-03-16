@@ -5,11 +5,14 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  /* background-color: #f0efef; */ 
+  /* background-color: #f0efef; */
   background-color: #f6f4f4;
 
   /* CUSTOM COLORS */
-  --primary-color: #2AE8F2;
+  --primary-color: #2ae8f2;
+
+  /* Z-INDEXES */
+  --modal-index: 100;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;

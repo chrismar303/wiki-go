@@ -8,7 +8,7 @@ export default function SearchResultCard({title, text}) {
   return (
     <article
       onClick={navigateToArticle}
-      className="h-40 w-lg hover:scale-115 ease-in-out duration-300 flex border-3 rounded-3xl shadow-xl border-gray-100 bg-white overflow-hidden cursor-pointer">
+      className="h-40 w-sm sm:w-md md:w-xl xl:w-lg hover:scale-115 ease-in-out duration-300 flex border-3 rounded-3xl shadow-xl border-gray-100 bg-white overflow-hidden cursor-pointer">
       <div className="flex flex-1 gap-2 flex-col p-4">
         <header>
           <h2 className="text-xl text-gray-700 font-bold">{title}</h2>
@@ -18,7 +18,6 @@ export default function SearchResultCard({title, text}) {
         </p>
         <footer className="mt-auto text-xs border-t-2 pt-2 border-gray-200 font-light text-gray-400"></footer>
       </div>
-
     </article>
   )
 }

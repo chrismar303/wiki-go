@@ -8,31 +8,30 @@ import {useNavigate} from 'react-router-dom'
 export default function SearchForm() {
   const navigate = useNavigate()
   const [searchTerm, setSearchTerm] = useState('')
-  const [searchTime,setSearchTime] = useState(0)
+  const [searchTime, setSearchTime] = useState(0)
   const [searchResults, setSearchResults] = useState([])
   const [error, setError] = useState('')
 
   const hasResults = () => searchTerm.length && searchResults[1]?.title
-useEffect(() => {
-  async function fetchResults() {
-    if (searchTerm.trim() === '') {
-      setSearchResults([]);
-      setSearchTime(0);
-      return;
-    }
+  useEffect(() => {
+    async function fetchResults() {
+      if (searchTerm.trim() === '') {
+        setSearchResults([])
+        setSearchTime(0)
+        return
+      }
 
-    const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
-      params: {q: searchTerm},
-      withCredentials: true  // receive cookie when searching
-    })
-    const results = [...res.data];
-    const lastElement = results.pop(); // Remove the last element from the array, which is the search time. Apologize for the bad json format
-    setSearchResults(results);
-    if(lastElement)
-      setSearchTime(lastElement.searchTimeUsed/1000); 
-  }
-  fetchResults()
-}, [searchTerm])
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
+        params: {q: searchTerm},
+        withCredentials: true // receive cookie when searching
+      })
+      const results = [...res.data]
+      const lastElement = results.pop() // Remove the last element from the array, which is the search time. Apologize for the bad json format
+      setSearchResults(results)
+      if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
+    }
+    fetchResults()
+  }, [searchTerm])
 
   const navigateToSearch = event => {
     event.preventDefault()
@@ -52,7 +51,7 @@ useEffect(() => {
   }
 
   return (
-    <form className="flex gap-8" onSubmit={navigateToSearch}>
+    <form className="flex gap-8 gap-y-4 flex-wrap" onSubmit={navigateToSearch}>
       <div className="relative">
         <SearchBar
           searchTerm={searchTerm}

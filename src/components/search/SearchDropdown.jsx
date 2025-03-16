@@ -7,7 +7,7 @@ export default function SearchDropdown({list}) {
     navigate(`/article/${encodeURIComponent(title)}`)
 
   return (
-    <ol className="absolute max-h-72 w-full overflow-y-scroll drop-shadow-md rounded-md bg-white">
+    <ol className="absolute max-h-72 w-full overflow-y-scroll drop-shadow-md rounded-md bg-white z-(--modal-index)">
       {list.map((entry, index) => (
         <li
           onClick={() => navigateToArticle(entry.title)}
