@@ -8,7 +8,7 @@ export default function HomePage() {
       <div className="w-full flex flex-col place-items-center py-8">
         <h1 className="text-4xl md:text-6xl font-bold">Wiki GO +</h1>
         <SectionDivider className="w-[80%] my-4" />
-        <h3 className="text-2xl md:text-4xl text-black font-thin">
+        <h3 className="text-xl md:text-4xl text-black font-thin">
           Your Wiki Bud On The Go
         </h3>
       </div>
