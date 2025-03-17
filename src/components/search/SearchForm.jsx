@@ -32,17 +32,17 @@ export default function SearchForm() {
 
       const validatedResults = []
       for (const result of results) {
-        const isValid = await testArticleHyperlink(result.title) // Test each result
+        const isValid = await testArticleHyperlink(result.title) 
         if (isValid) {
-          validatedResults.push(result) // Add only valid results
+          validatedResults.push(result)
         }
 
         // Update the state in batches
         if (validatedResults.length % 8 === 0) {
-          setSearchResults([...validatedResults]) // Update every 5 valid results
+          setSearchResults([...validatedResults]) 
         }
       }
-      // Final update after all validations
+   
       setSearchResults([...validatedResults])
 
     }
@@ -56,7 +56,6 @@ export default function SearchForm() {
       setError('Please Enter Search Request')
       return
     }
-
     navigate('/search', {
       state: {
         searchTerm: searchTerm.trim(),
