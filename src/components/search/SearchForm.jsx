@@ -62,7 +62,6 @@ export default function SearchForm({text}) {
       onSubmit={navigateToSearch}>
       <div className="relative">
         <SearchBar
-          ref={dropdownRef}
           onClick={() => setOpenMenu(!openMenu)}
           searchTerm={searchTerm}
           onChange={event => setSearchTerm(event.target.value)}
@@ -72,7 +71,9 @@ export default function SearchForm({text}) {
             {error}
           </p>
         )}
-        {showMenu() && <SearchDropdown list={searchResults} />}
+        {showMenu() && (
+          <SearchDropdown ref={dropdownRef} list={searchResults} />
+        )}
       </div>
       <ActionButton onClick={navigateToSearch}>Search</ActionButton>
     </form>
