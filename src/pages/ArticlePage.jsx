@@ -90,11 +90,9 @@ export default function ArticlePage() {
   }, [title])
 
   return (
-    <>
-      <div className="min-h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12 bg-white">
-        <ArticleHeader title={articleTitle} />
-        <ArticleSections sections={articleSections} />
-      </div>
-    </>
+    <div className="min-h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12 bg-white">
+      <ArticleHeader title={articleTitle} />
+      <ArticleSections sections={articleSections} />
+    </div>
   )
 }
