@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
+import {forwardRef} from 'react'
 import {useNavigate} from 'react-router-dom'
 
-export default function SearchDropdown({list}) {
+const SearchDropdown = forwardRef(function SearchDropdown({list}, ref) {
   const navigate = useNavigate()
   const navigateToArticle = title =>
     navigate(`/article/${encodeURIComponent(title)}`)
 
   return (
-    <ol className="absolute max-h-72 w-full overflow-y-scroll drop-shadow-md rounded-md bg-white z-(--modal-index)">
+    <ol
+      ref={ref}
+      className="absolute max-h-72 w-full overflow-y-scroll drop-shadow-md rounded-md bg-white z-(--modal-index)">
       {list.map((entry, index) => (
         <li
           onClick={() => navigateToArticle(entry.title)}
@@ -22,8 +25,10 @@ export default function SearchDropdown({list}) {
       ))}
     </ol>
   )
-}
+})
 
 SearchDropdown.propTypes = {
   list: PropTypes.array.isRequired
 }
+
+export default SearchDropdown

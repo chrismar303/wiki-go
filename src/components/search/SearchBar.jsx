@@ -1,12 +1,10 @@
 import {IoSearch} from 'react-icons/io5'
 import PropTypes from 'prop-types'
-import {forwardRef} from 'react'
 
-const SearchBar = forwardRef(function SearchBar({searchTerm, onChange, onClick}, ref) {
+export default function SearchBar({searchTerm, onChange, onClick}) {
   return (
     <div className="flex relative">
       <input
-        ref={ref}
         value={searchTerm}
         onChange={onChange}
         onClick={onClick}
@@ -16,12 +14,10 @@ const SearchBar = forwardRef(function SearchBar({searchTerm, onChange, onClick},
       <IoSearch className="absolute right-4 top-[15%] text-3xl text-(--primary-color)" />
     </div>
   )
-})
+}
 
 SearchBar.propTypes = {
   searchTerm: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onClick: PropTypes.func
 }
-
-export default SearchBar
