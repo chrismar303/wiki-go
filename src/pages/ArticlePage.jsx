@@ -109,7 +109,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <div className="min-h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12">
+      <div className="min-h-full flex flex-col gap-y-2 md:gap-y-3 px-4 py-12">
         <section className="flex place-content-center text-center">
           <h1 className="text-4xl md:text-5xl lg:text-7xl text-(--primary-color) font-bold drop-shadow">
             {articleTitle}
@@ -119,12 +119,12 @@ export default function ArticlePage() {
         <div className="flex flex-col md:w-[80%] mx-auto">
           {articleSections.map((section, index) => (
             <div key={index} className="w-[90%] mx-auto">
-              <div className="flex my-4 gap-8 items-center">
+              <div className="flex my-1 gap-8 items-center">
                 <div className="bg-white drop-shadow-2xl border-2 border-(--primary-color) rounded-full h-5 w-5 -mx-2"></div>
                 {/* Skip first entry */}
-                {index && (
+                {/* {index && (
                   <div className="bg-gray-100 flex-1 rounded h-1 shadow-md"></div>
-                )}
+                )} */}
               </div>
               <section className="pl-8 border-l-2 border-(--primary-color)">
                 <h5 className="text-gray-600 text-3xl font-bold truncate">

@@ -35,9 +35,7 @@ export default function SearchForm({text}) {
       const lastElement = results.pop() // Remove the last element from the array, which is the search time. Apologize for the bad json format
       if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
 
-          setSearchResults([...results])
-
-      setSearchResults([...validatedResults])
+      setSearchResults([...results])
     }
     fetchResults()
   }, [searchTerm])
