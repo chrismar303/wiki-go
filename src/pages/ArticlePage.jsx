@@ -1,10 +1,9 @@
-import ArticleNav from '../components/navigation/ArticleNav'
 import SectionDivider from '../components/divider/SectionDivider'
-import { useParams } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+import {useNavigate, useParams} from 'react-router-dom'
+import {useEffect, useState} from 'react'
 import axios from 'axios'
 
-export  async function testArticleHyperlink(title) {
+export async function testArticleHyperlink(title) {
   const url = `${import.meta.env.VITE_API_URL}/article/${title}`
   try {
     const response = await axios.head(url, { withCredentials: true })
@@ -19,6 +18,7 @@ export default function ArticlePage() {
   const { title } = useParams()
   const [articleTitle, setArticleTitle] = useState('')
   const [articleSections, setArticleSections] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function divideIntoSections(text) {
@@ -93,34 +93,41 @@ export default function ArticlePage() {
     }
 
     async function fetchArticle() {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/article/${title}`, { withCredentials: true })
-      setArticleTitle(response.data.title)
-      const sections = await divideIntoSections(response.data.text)
-      setArticleSections(sections)
+      // mainly used for detecting malformed article URLs
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/article/${title}`, { withCredentials: true })
+        setArticleTitle(response.data.title)
+        const sections = await divideIntoSections(response.data.text)
+        setArticleSections(sections)
+      } catch (error) {
+        console.error(error)
+        navigate('/', {replace: true})
+      }
     }
     fetchArticle()
   }, [title])
 
   return (
     <>
-      <section className="my-8 bg-white h-full w-[80%] mx-auto ">
-        <div className="flex bg-white mb-8  place-content-between">
-          <h1 className="text-7xl text-(--primary-color) font-bold drop-shadow">
+      <div className="h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12">
+        <section className="flex place-content-center text-center">
+          <h1 className="text-4xl md:text-5xl lg:text-7xl text-(--primary-color) font-bold drop-shadow">
             {articleTitle}
           </h1>
-        </div>
-      </section>
-      {/* Article Sections */}
-      <div className="bg-white drop-shadow-2xl">
-        <div className="flex flex-col w-[80%] mx-auto">
+        </section>
+        {/* Article Sections */}
+        <div className="flex flex-col md:w-[80%] mx-auto">
           {articleSections.map((section, index) => (
             <div key={index} className="w-[90%] mx-auto">
               <div className="flex my-4 gap-8 items-center">
                 <div className="bg-white drop-shadow-2xl border-2 border-(--primary-color) rounded-full h-5 w-5 -mx-2"></div>
-                <div className="bg-gray-100 flex-1 rounded h-1 shadow-md"></div>
+                {/* Skip first entry */}
+                {index && (
+                  <div className="bg-gray-100 flex-1 rounded h-1 shadow-md"></div>
+                )}
               </div>
               <section className="pl-8 border-l-2 border-(--primary-color)">
-                <h5 className="text-gray-600 text-3xl font-bold">
+                <h5 className="text-gray-600 text-3xl font-bold truncate">
                   <span dangerouslySetInnerHTML={{ __html: section.title }}></span>
                 </h5>
                 <SectionDivider />
