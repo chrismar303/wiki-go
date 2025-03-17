@@ -90,7 +90,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <div className="min-h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12 bg-white">
+      <div className="min-h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12">
         <section className="flex place-content-center text-center">
           <h1 className="text-4xl md:text-5xl lg:text-7xl text-(--primary-color) font-bold drop-shadow">
             {articleTitle}
