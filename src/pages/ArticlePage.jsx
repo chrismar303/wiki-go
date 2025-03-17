@@ -3,8 +3,19 @@ import {useNavigate, useParams} from 'react-router-dom'
 import {useEffect, useState} from 'react'
 import axios from 'axios'
 
+export async function testArticleHyperlink(title) {
+  const url = `${import.meta.env.VITE_API_URL}/article/${title}`
+  try {
+    const response = await axios.head(url, { withCredentials: true })
+    return response.status >= 200 && response.status < 300 // Return true if status is 2xx
+  } catch (error) {
+    console.info(`Failed to validate hyperlink: ${url}`, error)
+    return false
+  }
+}
+
 export default function ArticlePage() {
-  const {title} = useParams()
+  const { title } = useParams()
   const [articleTitle, setArticleTitle] = useState('')
   const [articleSections, setArticleSections] = useState([])
   const navigate = useNavigate()
@@ -65,19 +76,17 @@ export default function ArticlePage() {
     async function fetchArticle() {
       // mainly used for detecting malformed article URLs
       try {
-        const response = await axios.get(
-          `${import.meta.env.VITE_API_URL}/article/${title}`,
-          {withCredentials: true}
-        )
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/article/${title}`, { withCredentials: true })
         setArticleTitle(response.data.title)
-        setArticleSections(divideIntoSections(response.data.text))
+        const sections = await divideIntoSections(response.data.text)
+        setArticleSections(sections)
       } catch (error) {
         console.error(error)
         navigate('/', {replace: true})
       }
     }
     fetchArticle()
-  }, [])
+  }, [title])
 
   return (
     <>
@@ -100,14 +109,15 @@ export default function ArticlePage() {
               </div>
               <section className="pl-8 border-l-2 border-(--primary-color)">
                 <h5 className="text-gray-600 text-3xl font-bold truncate">
-                  {section.title}
+                  <span dangerouslySetInnerHTML={{ __html: section.title }}></span>
                 </h5>
                 <SectionDivider />
                 {section.content.map((paragraph, pIndex) => (
                   <p
                     key={pIndex}
                     className="text-black font-light mt-6"
-                    dangerouslySetInnerHTML={{__html: paragraph}}></p>
+                    dangerouslySetInnerHTML={{ __html: paragraph }}
+                  ></p>
                 ))}
               </section>
             </div>
