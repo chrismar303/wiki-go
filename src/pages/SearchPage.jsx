@@ -4,10 +4,8 @@ import SearchResultCard from '../components/cards/SearchResultCard'
 import {useLocation} from 'react-router-dom'
 
 export default function SearchPage() {
-  const location = useLocation()
-  const {
-    state: {searchTerm, searchResults, searchTime}
-  } = location
+  const {state} = useLocation()
+  const {searchTerm, searchResults, searchTime} = state
 
   return (
     <section className="flex flex-col gap-8 h-full w-[90%] mx-auto">
