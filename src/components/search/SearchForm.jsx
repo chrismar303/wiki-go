@@ -35,18 +35,7 @@ export default function SearchForm({text}) {
       const lastElement = results.pop() // Remove the last element from the array, which is the search time. Apologize for the bad json format
       if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
 
-      const validatedResults = []
-      for (const result of results) {
-        const isValid = await testArticleHyperlink(result.title)
-        if (isValid) {
-          validatedResults.push(result)
-        }
-
-        // Update the state in batches
-        if (validatedResults.length % 8 === 0) {
-          setSearchResults([...validatedResults])
-        }
-      }
+          setSearchResults([...results])
 
       setSearchResults([...validatedResults])
     }
