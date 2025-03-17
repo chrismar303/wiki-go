@@ -1,10 +1,11 @@
 import SearchBar from './SearchBar'
 import SearchDropdown from './SearchDropdown'
 import ActionButton from '../buttons/ActionButton'
-import { useState, useEffect } from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { testArticleHyperlink } from '../../pages/ArticlePage'
+import {useNavigate} from 'react-router-dom'
+import {testArticleHyperlink} from '../../pages/ArticlePage'
+import useClickOutside from '../../hooks/useClickOutside'
 
 export default function SearchForm() {
   const navigate = useNavigate()
@@ -12,8 +13,11 @@ export default function SearchForm() {
   const [searchTime, setSearchTime] = useState(0)
   const [searchResults, setSearchResults] = useState([])
   const [error, setError] = useState('')
+  const [openMenu, setOpenMenu] = useState(false)
+  const dropdownRef = useClickOutside(() => setOpenMenu(false))
 
-  const hasResults = () => searchTerm.length && searchResults[1]?.title
+  const showMenu = () =>
+    openMenu && !!searchTerm.length && searchResults[1]?.title
   useEffect(() => {
     async function fetchResults() {
       if (searchTerm.trim() === '') {
@@ -23,7 +27,7 @@ export default function SearchForm() {
       }
 
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
-        params: { q: searchTerm },
+        params: {q: searchTerm},
         withCredentials: true // receive cookie when searching
       })
       const results = [...res.data]
@@ -32,19 +36,18 @@ export default function SearchForm() {
 
       const validatedResults = []
       for (const result of results) {
-        const isValid = await testArticleHyperlink(result.title) 
+        const isValid = await testArticleHyperlink(result.title)
         if (isValid) {
           validatedResults.push(result)
         }
 
         // Update the state in batches
         if (validatedResults.length % 8 === 0) {
-          setSearchResults([...validatedResults]) 
+          setSearchResults([...validatedResults])
         }
       }
-   
-      setSearchResults([...validatedResults])
 
+      setSearchResults([...validatedResults])
     }
     fetchResults()
   }, [searchTerm])
@@ -71,6 +74,8 @@ export default function SearchForm() {
       onSubmit={navigateToSearch}>
       <div className="relative">
         <SearchBar
+          ref={dropdownRef}
+          onClick={() => setOpenMenu(!openMenu)}
           searchTerm={searchTerm}
           onChange={event => setSearchTerm(event.target.value)}
         />
@@ -79,7 +84,7 @@ export default function SearchForm() {
             {error}
           </p>
         )}
-        {hasResults() ? <SearchDropdown list={searchResults} /> : ''}
+        {showMenu() && <SearchDropdown list={searchResults} />}
       </div>
       <ActionButton onClick={navigateToSearch}>Search</ActionButton>
     </form>
