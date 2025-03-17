@@ -19,12 +19,16 @@ export default function SearchPage() {
           </span>
         </div>
 
-        <SearchForm />
+        <SearchForm text={searchTerm} />
       </div>
 
       <SectionDivider />
-      <section className="w-full pb-16">
-        <ol className="w-[90%] mx-auto grid grid-cols-1 xl:grid-cols-2 gap-y-8 justify-items-center">
+      <section className="w-full lg:w-[90%] mx-auto pb-16">
+        <h3 className="mb-8 ml-1 text-(--primary-color) text-lg font-medium">
+          Showing Results For:{' '}
+          <span className="font-bold text-gray-600">{searchTerm}</span>
+        </h3>
+        <ol className="grid grid-cols-1 xl:grid-cols-2 gap-y-8 justify-items-center">
           {searchResults.map((res, index) => (
             <li className="w-full" key={index}>
               <SearchResultCard title={res.title} text={res.text} />

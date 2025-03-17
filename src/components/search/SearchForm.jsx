@@ -6,10 +6,11 @@ import axios from 'axios'
 import {useNavigate} from 'react-router-dom'
 import {testArticleHyperlink} from '../../pages/ArticlePage'
 import useClickOutside from '../../hooks/useClickOutside'
+import PropTypes from 'prop-types'
 
-export default function SearchForm() {
+export default function SearchForm({text}) {
   const navigate = useNavigate()
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState(text || '')
   const [searchTime, setSearchTime] = useState(0)
   const [searchResults, setSearchResults] = useState([])
   const [error, setError] = useState('')
@@ -89,4 +90,8 @@ export default function SearchForm() {
       <ActionButton onClick={navigateToSearch}>Search</ActionButton>
     </form>
   )
+}
+
+SearchForm.propTypes = {
+  text: PropTypes.string
 }
