@@ -21,73 +21,54 @@ export default function ArticlePage() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    async function divideIntoSections(text) {
+    function divideIntoSections(text) {
       const cleanedText = text.replace(/[^\x00-\x7F]/g, '')
       const paragraphs = cleanedText.split('\n\n')
       const articleSegments = []
-      let currentSection = { title: '', content: [] }
+      let currentSection = {title: '', content: []}
 
-      if (paragraphs.length > 0 && (paragraphs[0].startsWith('REDIRECT ') || paragraphs[0].startsWith('redirect '))) {
-        const redirectTitle = paragraphs[0].substring(9).trim() // Extract the title after "REDIRECT "
-        const isValid = await testArticleHyperlink(redirectTitle)
-
-        currentSection.title = isValid
-          ? `<a href="/article/${redirectTitle}" style="color: blue; text-decoration: underline;">${paragraphs[0]}</a>`
-          : paragraphs[0]
-        articleSegments.push(currentSection)
-        return articleSegments
-      }
-
-      for (const paragraph of paragraphs) {
+      paragraphs.forEach(paragraph => {
         const wordCount = paragraph.trim().split(/\s+/).length
 
         if (wordCount < 3) {
           // Treat as title if fewer than 3 words
-          if (currentSection.content.length) {
+          if (currentSection.title || currentSection.content.length) {
             articleSegments.push(currentSection)
           }
-
-          currentSection = { title: `${paragraph.trim()}`, content: [] }
+          currentSection = {title: `${paragraph.trim()}`, content: []}
         } else {
-          let isSeeAlso = false
-          const lines = paragraph.trim().split('\n')
-
-          if (lines[0].includes('See also')) {
-            isSeeAlso = true
-          }
-
           // Replace single \n with <br /> and add to content
-          const formattedParagraph = await Promise.all(
-            lines.map(async (line, index) => {
-              const trimmedLine = line.trim()
-              let res = ''
-              const lineWordCount = trimmedLine.split(/\s+/).length
-
-              if (isSeeAlso && index !== 0) {
-                // Ignore the first line if it contains "See also"
-                const isValid = await testArticleHyperlink(trimmedLine)
-                res = isValid
-                  ? `<a href="/article/${trimmedLine}" style="color: blue; text-decoration: underline;">${trimmedLine}</a>`
-                  : trimmedLine
-              } else if (trimmedLine.includes('thumb|')) {
+          const formattedParagraph = paragraph
+            .trim()
+            .split('\n')
+            .map(line => {
+              // Ignore lines that start with "thumb|"
+              if (line.trim().includes('thumb|')) {
                 // Ignore lines that start with "thumb|"
-                res = ''
-              } else if (lineWordCount < 3) {
-                res = `<span class="text-lg font-bold">${trimmedLine}</span>` // Bolden if fewer than 3 words
-              } else {
-                res = trimmedLine
+                return ''
               }
 
-              return res
+              const lineWordCount = line.trim().split(/\s+/).length
+              return lineWordCount < 3
+                ? `<span class="text-lg font-bold">${line.trim()}</span>` // Bolden if fewer than 3 words
+                : line.trim()
             })
-          )
-          currentSection.content.push(formattedParagraph.join('<br />'))
+            .join('<br />')
+          currentSection.content.push(formattedParagraph)
         }
-      }
+      })
 
       if (currentSection.title || currentSection.content.length) {
         articleSegments.push(currentSection)
       }
+
+      articleSegments.forEach((segment, index) => {
+        if (segment.content.length === 1 && (segment.content[0].startsWith('REDIRECT ') || segment.content[0].startsWith('redirect '))) {
+          console.log(`Found redirect in segment ${index}:`, segment.content[0])
+          const redirectTitle = segment.content[0].substring(9).trim() // Extract the title after "REDIRECT "
+          segment.content[0] = `<a href="/article/${redirectTitle}"  style="color: blue; text-decoration: underline;">${segment.content[0]}</a>`
+        }
+      })
 
       return articleSegments
     }
@@ -109,7 +90,7 @@ export default function ArticlePage() {
 
   return (
     <>
-      <div className="h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12">
+      <div className="min-h-full flex flex-col gap-y-4 md:gap-y-8 px-4 py-12">
         <section className="flex place-content-center text-center">
           <h1 className="text-4xl md:text-5xl lg:text-7xl text-(--primary-color) font-bold drop-shadow">
             {articleTitle}
