@@ -1,5 +1,7 @@
 import SectionDivider from '../components/divider/SectionDivider'
 import PropTypes from 'prop-types'
+import architectureImage from '../assets/images/app-architecture.svg'
+import luceneImage from '../assets/images/lucene-architecture.svg'
 
 export default function AboutPage() {
   return (
@@ -36,7 +38,7 @@ export default function AboutPage() {
               <a
                 className="text-blue-500"
                 href="https://docs.google.com/presentation/d/14_jKemhpoe4TN59FV7WQbxNJIt6aeSChYAxVz05cjK4/edit#slide=id.g339e6244082_0_0">
-                vist our slides
+                visit our slides
               </a>
             </span>
           </AboutSection>
@@ -44,11 +46,11 @@ export default function AboutPage() {
             <div className="flex flex-col gap-8">
               <ImageSection
                 label="Application Flow"
-                img="/src/assets/images/app-architecture.svg"
+                img={architectureImage}
               />
               <ImageSection
                 label="Lucene EC2 Compute Nodes "
-                img="/src/assets/images/lucene-architecture.svg"
+                img={luceneImage}
               />
             </div>
           </AboutSection>
