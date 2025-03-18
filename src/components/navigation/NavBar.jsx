@@ -3,13 +3,14 @@ import {NavLink} from 'react-router'
 export default function NavBar() {
   const navOptions = {
     Home: '/',
-    About: '/about',
-    Search: '/search'
+    About: '/about'
   }
   return (
     <nav className="nav-main h-22 flex justify-between items-center px-8 border-b border-gray-100 drop-shadow-lg text-black bg-white">
       <NavLogo />
-      {/* <ul className="flex place-items-center list-none gap-x-16">
+      <ul
+        className="flex place-items-center list-none gap-x-16
+      ">
         {Object.entries(navOptions).map(([option, url]) => (
           <li
             key={url}
@@ -25,7 +26,7 @@ export default function NavBar() {
             Contact
           </button>
         </li>
-      </ul> */}
+      </ul>
     </nav>
   )
 }
@@ -37,5 +38,3 @@ function NavLogo() {
     </div>
   )
 }
-
-
