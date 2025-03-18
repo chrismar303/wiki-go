@@ -3,16 +3,18 @@ import PropTypes from 'prop-types'
 
 export default function AboutPage() {
   return (
-    <section className="h-full flex flex-col items-center my-8 gap-4">
-      <div className="text-center w-[50%] mx-auto">
-        <h1 className="text-6xl font-medium text-(--primary-color)">About</h1>
-        <h3 className="text-lg font-thin text-gray-600">
+    <section className="h-full flex mx-4 lg:mx-0 flex-col items-center my-8 gap-4 ">
+      <div className="text-center lg:w-[50%] mx-auto">
+        <h1 className="text-5xl lg:text-6xl font-medium text-(--primary-color)">
+          About
+        </h1>
+        <h3 className="text-sm lg:text-lg font-thin text-gray-600">
           More Information About Our Project
         </h3>
       </div>
-      <SectionDivider className="w-[80%] mb-8" />
+      <SectionDivider className="w-full lg:w-[80%] lg:mb-8" />
 
-      <div className="w-[50%] mx-auto">
+      <div className="lg:w-[50%] mx-auto">
         <div className="flex flex-col gap-y-8">
           <AboutSection
             label="PROJECT"
@@ -29,7 +31,7 @@ export default function AboutPage() {
             React frontend client. The client makes request which interacts a load-balancer that distributes
             the request amoung our server group. The server then directly interacts with the Lucene Compute Nodes
             and awaits a response to send back to the client">
-            <span className="block mt-4">
+            <span className="block mt-4 text-sm lg:text-md">
               For more information,{' '}
               <a
                 className="text-blue-500"
@@ -59,8 +61,8 @@ export default function AboutPage() {
 function AboutSection({label, text, children}) {
   return (
     <div>
-      <h1 className="mb-2 text-2xl font-semibold">{label}</h1>
-      <p className="text-lg font-light text-gray-600">{text}</p>
+      <h1 className="mb-2 text-xl lg:text-2xl font-semibold">{label}</h1>
+      <p className="text-md lg:text-lg font-light text-gray-600">{text}</p>
       {children}
     </div>
   )
@@ -69,7 +71,7 @@ function AboutSection({label, text, children}) {
 function ImageSection({label, img}) {
   return (
     <div>
-      <h4 className="text-lg text-gray-600">{label}</h4>
+      <h4 className="text-md lg:text-lg text-gray-600">{label}</h4>
       <img src={img} alt={label} />
     </div>
   )
