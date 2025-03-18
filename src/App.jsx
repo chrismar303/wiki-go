@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import SearchPage from './pages/SearchPage'
 import ArticlePage from './pages/ArticlePage'
 import ProtectedRoute from './routes/ProtectedRoute'
+import AboutPage from './pages/AboutPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="search" element={<SearchPage />} />
         </Route>
         <Route path="article/:title" element={<ArticlePage />} />
+        <Route path="about" element={<AboutPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
