@@ -26,7 +26,7 @@ export default function SearchForm({text}) {
         setSearchTime(0)
         return
       }
-
+      
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/search`, {
         params: {q: searchTerm},
         withCredentials: true // receive cookie when searching
@@ -47,6 +47,9 @@ export default function SearchForm({text}) {
       setError('Please Enter Search Request')
       return
     }
+      if (searchResults.length === 0) {
+        return
+      }
     navigate('/search', {
       state: {
         searchTerm: searchTerm.trim(),
