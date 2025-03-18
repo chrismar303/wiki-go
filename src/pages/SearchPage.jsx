@@ -1,11 +1,11 @@
 import SearchForm from '../components/search/SearchForm'
 import SectionDivider from '../components/divider/SectionDivider'
 import SearchResultCard from '../components/cards/SearchResultCard'
-import {useLocation} from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 
 export default function SearchPage() {
-  const {state} = useLocation()
-  const {searchTerm, searchResults, searchTime} = state
+  const { state } = useLocation()
+  const { searchTerm, searchResults, searchTime } = state
 
   return (
     <section className="flex flex-col gap-8 h-full w-[90%] mx-auto">
@@ -25,7 +25,7 @@ export default function SearchPage() {
       <SectionDivider />
       <section className="w-full lg:w-[90%] mx-auto pb-16">
         <h3 className="mb-8 ml-1 text-(--primary-color) text-lg font-medium">
-          Showing Results For:{' '}
+          Showing {searchResults.length} Results For:{' '}
           <span className="font-bold text-gray-600">{searchTerm}</span>
         </h3>
         <ol className="grid grid-cols-1 xl:grid-cols-2 gap-y-8 justify-items-center">

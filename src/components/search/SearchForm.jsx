@@ -14,13 +14,17 @@ export default function SearchForm({text}) {
   const [searchTime, setSearchTime] = useState(0)
   const [searchResults, setSearchResults] = useState([])
   const [error, setError] = useState('')
+  const [isFetching, setIsFetching] = useState(false)
   const [openMenu, setOpenMenu] = useState(false)
   const dropdownRef = useClickOutside(() => setOpenMenu(false))
 
   const showMenu = () =>
     openMenu && !!searchTerm.length && searchResults[1]?.title
   useEffect(() => {
+    let isMounted = true
     async function fetchResults() {
+      setIsFetching(true)
+
       if (searchTerm.trim() === '') {
         setSearchResults([])
         setSearchTime(0)
@@ -31,13 +35,21 @@ export default function SearchForm({text}) {
         params: {q: searchTerm},
         withCredentials: true // receive cookie when searching
       })
+
+      if (!isMounted){
+        // if unmounted there must be some other ongoing search which will reset the flag
+        return
+      } 
       const results = [...res.data]
       const lastElement = results.pop() // Remove the last element from the array, which is the search time. Apologize for the bad json format
       if (lastElement) setSearchTime(lastElement.searchTimeUsed / 1000)
-
       setSearchResults([...results])
+      setIsFetching(false)
     }
     fetchResults()
+    return () => {
+      isMounted = false;
+    };
   }, [searchTerm])
 
   const navigateToSearch = event => {
@@ -47,9 +59,9 @@ export default function SearchForm({text}) {
       setError('Please Enter Search Request')
       return
     }
-      if (searchResults.length === 0) {
-        return
-      }
+    if (isFetching) {
+      return
+    }
     navigate('/search', {
       state: {
         searchTerm: searchTerm.trim(),
